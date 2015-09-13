@@ -9,3 +9,12 @@ This is an implementation of two processes in two different scripts.
 Part of an assignment for EE2110 at Indian Institute of Technology, Hyderabad.
 
 
+Description:
+
+-> poission.py contains the implementation of a Poission Arrival Time Generator using Bernoulli Approximation
+-> densityfunctions.py contains the implementation of functions that calculate PDF and CDF
+-> Brownian.py contains the implementation of n-dim Wiener Process instances and related correlated process
+-> ecgprocess.m implements processing of ECG data as asked for
+-> wienerFilter.m implements a Wiener filter
+
+

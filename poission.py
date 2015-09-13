@@ -7,6 +7,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import densityfunctions as df
 
 def threshold_loc(rand_seq,threshold):
     loc = np.where(rand_seq>threshold);
@@ -25,12 +26,6 @@ def gen_rand_seq(N):
     rand_seq = np.random.rand(N);
     return rand_seq
 
-def gen_cdf(rand_seq):
-    dist_hist = np.histogram(rand_seq,10);
-    cdf_freq_val = np.cumsum(dist_hist[0]);
-    cdf_xvals=dist_hist[1];
-    cdf_freq_val = np.insert(cdf_freq_val,0,0)/np.max(cdf_freq_val);
-    return (cdf_freq_val,cdf_xvals)
 
 
 if __name__ == "__main__":
@@ -44,15 +39,16 @@ if __name__ == "__main__":
     loc_seq = threshold_loc(seq,threshold);
     (ia_times,n_arrivals) = calc_interarrival_times(loc_seq);
     x_val = np.arange(n_arrivals);
-    dist_hist = np.histogram(ia_times,10);
-    (cdf_freq_val,cdf_xvals) = gen_cdf(ia_times);
-    plt.plot(cdf_xvals,cdf_freq_val,'o')
-    plt.figure()
-    plt.plot(dist_hist[0])
+    #dist_hist = np.histogram(ia_times,10);
+    (cdf_freq_val,cdf_xvals) = df.gen_cdf(ia_times,10,1);
+    (pdf_val,pdf_xval) = df.gen_pdf(ia_times,10,1);
+    #plt.plot(cdf_xvals,cdf_freq_val,'o')
+    #plt.figure()
+    #plt.plot(pdf_val,pdf_xval)
     plt.show()
     #plt.figure
     #plt.plot(dist_hist[0])
 
     #plt.figure
     #plt.plot(x_val,ia_times)
-    
+

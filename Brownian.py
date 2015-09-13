@@ -23,11 +23,27 @@ def gen_proc(seq):
 if __name__ == "__main__":
     n_dims = 1;
     N_samples = 1000;
-    seq = genrand_seq(n_dims,N_samples);
-    seq = gen_proc(seq);
-    plt.plot(np.transpose(seq))
-    cdf = df.gen_cdf(seq[0],100,1)
-    pdf = df.gen_pdf(seq[0],100,1)
+    seq1 = genrand_seq(n_dims,N_samples);
+    seq1 = gen_proc(seq1);
+
+    seq2 = genrand_seq(n_dims,N_samples);
+    seq2 = gen_proc(seq2);
+
+    plt.plot(np.transpose(seq1))
+    cdf = df.gen_cdf(seq1[0],100,1)
+    pdf = df.gen_pdf(seq1[0],100,1)
+
+    rho = [-0.95,-0.5, 0, 0.5 ,0.95]
+    rho = np.array(rho);
+    rho2 = np.sqrt(1-np.power(rho,2))
+
+    for i in range(5):
+        corr_seq = rho[i]*seq1 + rho2[i]*seq2;
+        #corr_seq = np.transpose(corr_seq);
+        q = plt.figure()
+        plt.plot(corr_seq,seq1,'o');
+        title = 'Correlation Coefficient - ' + str(rho[i])
+        q.suptitle(title)
     plt.show()
 
 

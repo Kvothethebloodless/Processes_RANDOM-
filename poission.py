@@ -18,7 +18,6 @@ def calc_interarrival_times(loc_seq):
     ia_times.append(loc_seq[0][0]);
     for k in range(no_of_arrivals-1):
         ia_times.append(loc_seq[0][k+1] - loc_seq[0][k]);
-
     ia_times = np.array(ia_times);
     return(ia_times,no_of_arrivals)
 
@@ -26,10 +25,17 @@ def gen_rand_seq(N):
     rand_seq = np.random.rand(N);
     return rand_seq
 
+def gen_cdf(rand_seq):
+    dist_hist = np.histogram(rand_seq,10);
+    cdf_freq_val = np.cumsum(dist_hist[0]);
+    cdf_xvals=dist_hist[1];
+    cdf_freq_val = np.insert(cdf_freq_val,0,0)/np.max(cdf_freq_val);
+    return (cdf_freq_val,cdf_xvals)
+
 
 if __name__ == "__main__":
     N = 1000000;
-    lambda_poisson = .5;
+    lambda_poisson = .7;
     delta = 1;
     p = lambda_poisson*delta;
     threshold = 1-p;
@@ -38,11 +44,15 @@ if __name__ == "__main__":
     loc_seq = threshold_loc(seq,threshold);
     (ia_times,n_arrivals) = calc_interarrival_times(loc_seq);
     x_val = np.arange(n_arrivals);
-    plt.plot(x_val,ia_times)
+    dist_hist = np.histogram(ia_times,10);
+    (cdf_freq_val,cdf_xvals) = gen_cdf(ia_times);
+    plt.plot(cdf_xvals,cdf_freq_val,'o')
+    plt.figure()
+    plt.plot(dist_hist[0])
     plt.show()
+    #plt.figure
+    #plt.plot(dist_hist[0])
 
-
-
-
-
-
+    #plt.figure
+    #plt.plot(x_val,ia_times)
+    

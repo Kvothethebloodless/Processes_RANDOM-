@@ -4,7 +4,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import poission as pos
+import densityfunctions as df
 
 
 
@@ -26,9 +26,9 @@ if __name__ == "__main__":
     seq = genrand_seq(n_dims,N_samples);
     seq = gen_proc(seq);
     plt.plot(np.transpose(seq))
-    cdf = pos.gen_cdf(seq[0],100,1)
-    pdf = pos.gen_pdf(seq[0],100,1)
-
+    cdf = df.gen_cdf(seq[0],100,1)
+    pdf = df.gen_pdf(seq[0],100,1)
+    plt.show()
 
 
 
